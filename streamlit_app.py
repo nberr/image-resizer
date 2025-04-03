@@ -22,7 +22,7 @@ if uploaded_files:
         
         # Create a new image with the desired size and background color
         new_image = Image.new("RGBA", (width, height), bg_color)
-        image.thumbnail((width, height), Image.ANTIALIAS)
+        image.thumbnail((width, height), Image.LANCZOS)
         
         # Center the image on the new canvas
         x_offset = (width - image.width) // 2
