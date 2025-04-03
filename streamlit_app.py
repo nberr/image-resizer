@@ -8,12 +8,12 @@ st.title("Image Resizer with Background Fill")
 uploaded_files = st.file_uploader("Upload one or more images", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
 # Inputs for width and height
-width = st.number_input("Enter width", min_value=1, value=512)
-height = st.number_input("Enter height", min_value=1, value=512)
+width = st.number_input("Enter width", min_value=1, value=300)
+height = st.number_input("Enter height", min_value=1, value=300)
 
 # Color picker with separate alpha input
 color = st.color_picker("Pick a background color", "#FFFFFF")
-alpha = st.slider("Opacity (0-255)", 0, 255, 255)
+alpha = st.slider("Opacity (0-255)", 0, 255, 0)
 rgba_color = (*ImageColor.getrgb(color), alpha)
 
 # Process images
