@@ -22,7 +22,7 @@ if uploaded_files:
         image = image.convert("RGBA")  # Ensure proper transparency handling
         
         # Create a new image with the desired size and background color
-        rgba_color = (*ImageColor.getrgb(bg_color), alpha)
+        rgba_color = (bg_color, alpha)
         new_image = Image.new("RGBA", (width, height), rgba_color)
         image.thumbnail((width, height), Image.LANCZOS)
         
