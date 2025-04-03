@@ -13,6 +13,7 @@ height = st.number_input("Enter height", min_value=1, value=512)
 
 # Color picker
 bg_color = st.color_picker("Pick a background color", "#FFFFFF")
+alpha = st.slider("Opacity (0-255)", 0, 255, 255)
 
 # Process images
 if uploaded_files:
@@ -21,7 +22,8 @@ if uploaded_files:
         image = image.convert("RGBA")  # Ensure proper transparency handling
         
         # Create a new image with the desired size and background color
-        new_image = Image.new("RGBA", (width, height), bg_color)
+        rgba_color = (*ImageColor.getrgb(bg_color), alpha)
+        new_image = Image.new("RGBA", (width, height), rgba_color)
         image.thumbnail((width, height), Image.LANCZOS)
         
         # Center the image on the new canvas
