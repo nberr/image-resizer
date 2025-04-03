@@ -39,5 +39,5 @@ if uploaded_files:
         new_image.save(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()
         
-        st.image(new_image, caption=f"Processed {uploaded_file.name}", use_column_width=True)
+        st.image(new_image, caption=f"Processed {uploaded_file.name}", use_container_width=True)
         st.download_button(label=f"Download {uploaded_file.name}", data=img_byte_arr, file_name=f"processed_{uploaded_file.name}", mime="image/png")
