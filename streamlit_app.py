@@ -1,5 +1,5 @@
 import streamlit as st
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageColor
 import io
 
 st.title("Image Resizer with Background Fill")
@@ -11,9 +11,10 @@ uploaded_files = st.file_uploader("Upload one or more images", type=["jpg", "jpe
 width = st.number_input("Enter width", min_value=1, value=512)
 height = st.number_input("Enter height", min_value=1, value=512)
 
-# Color picker
-bg_color = st.color_picker("Pick a background color", "#FFFFFF")
+# Color picker with separate alpha input
+color = st.color_picker("Pick a background color", "#FFFFFF")
 alpha = st.slider("Opacity (0-255)", 0, 255, 255)
+rgba_color = (*ImageColor.getrgb(color), alpha)
 
 # Process images
 if uploaded_files:
@@ -22,7 +23,6 @@ if uploaded_files:
         image = image.convert("RGBA")  # Ensure proper transparency handling
         
         # Create a new image with the desired size and background color
-        rgba_color = (bg_color, alpha)
         new_image = Image.new("RGBA", (width, height), rgba_color)
         image.thumbnail((width, height), Image.LANCZOS)
         
@@ -39,5 +39,5 @@ if uploaded_files:
         new_image.save(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()
         
-        st.image(new_image, caption=f"Processed {uploaded_file.name}", use_container_width=True)
+        st.image(new_image, caption=f"Processed {uploaded_file.name}", use_column_width=True)
         st.download_button(label=f"Download {uploaded_file.name}", data=img_byte_arr, file_name=f"processed_{uploaded_file.name}", mime="image/png")
